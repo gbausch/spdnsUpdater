@@ -9,7 +9,7 @@
 #
 # Update (2016-07-14) by Gerold Bausch
 # - new option to obtain ip address
-# - new URL and https support provided by spdny.de
+# - new URL and https support provided by spdyn.de
 # - added token functionality
 
 import urllib
