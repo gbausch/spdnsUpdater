@@ -1,5 +1,5 @@
 # spdnsUpdate -- Securepoint DNS Updater
-Python script based on [Michael Nowak's script](https://gist.github.com/mmichaa/5587307) to update IP addresses on [Securepoint Dynamic DNS Service](https://spdyn.de).
+Python script based on [Gerold Bausch's python script](https://github.com/gbausch/spdnsUpdater) based on [Michael Nowak's script](https://gist.github.com/mmichaa/5587307) to update IP addresses on [Securepoint Dynamic DNS Service](https://spdyn.de).
 
 **Usage:**
 - ```python spdnsUpdate.py <hostname> <user> <password>```
