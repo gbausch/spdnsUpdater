@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
 # Usage:
@@ -7,21 +7,24 @@
 #
 # Copyright 2013 -- Michael Nowak
 #
+# Update (2024-11-07) by Gerold Bausch
+# - updated to Python3
+
 # Update (2016-07-14) by Gerold Bausch
 # - new option to obtain ip address
 # - new URL and https support provided by spdyn.de
 # - added token functionality
 
 import urllib
-from requests import get
+import requests
 
 url_ip     = "https://api.ipify.org"
 url_update = "https://update.spdyn.de/nic/update"
 
 def dns_update(params, ip):
 
-    response = urllib.urlopen(url_update, params)
-    body = response.read()
+    response = requests.get(url_update, params=params)
+    body = str(response.content)
 
     code = body.split(' ', 1)[0]
     if code == 'good':
@@ -44,12 +47,12 @@ def main(argv):
         passwd   = argv[3]
 
         # get ip address
-        ip = get(url_ip).text
+        ip = requests.get(url_ip).text
 
         # update ip address
         if hostname and user and passwd:
             # parameters for username/password based update
-            params = urllib.urlencode({'hostname': hostname, 'myip': ip, 'user': user, 'pass': passwd})
+            params = urllib.parse.urlencode({'hostname': hostname, 'myip': ip, 'user': user, 'pass': passwd})
             return dns_update(params, ip)
         else:
             return False
@@ -60,20 +63,20 @@ def main(argv):
         token    = argv[2]
 
         # get ip address
-        ip = get(url_ip).text
+        ip = requests.get(url_ip).text
 
         # update ip address with token
         if hostname and token:
             # parameters for token based update
-            params = urllib.urlencode({'hostname': hostname, 'myip': ip, 'user': hostname, 'pass': token})
+            params = urllib.parse.urlencode({'hostname': hostname, 'myip': ip, 'user': hostname, 'pass': token})
             return dns_update(params, ip)
         else:
             return False
     else:
-        print ''
-        print "\tUSAGE:         " + __file__ + ' <hostname> <user> <passwd>'
-        print "\tUSAGE w/token: " + __file__ + ' <hostname> <token>'
-        print ''
+        print("")
+        print("\tUSAGE:         " + __file__ + " <hostname> <user> <passwd>")
+        print("\tUSAGE w/token: " + __file__ + " <hostname> <token>")
+        print("")
         return None
 
 if __name__ == '__main__':
